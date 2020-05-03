@@ -10,8 +10,8 @@ By using this repository you can :-
 1. Pull images from [DockerHub](https://hub.docker.com/)
 2. Create Docker volumes for permanent use.
 3. Set Up MySQl Database.
-4. Set up Wordpress.
-5. Set up OwnCloud server.
+4. Set up Wordpress for creating a website or blog.
+5. Set up OwnCloud server for file hosting services.
 
 ## Built with
 - RedHat Linux RHEL8
