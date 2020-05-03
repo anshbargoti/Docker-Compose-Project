@@ -23,7 +23,7 @@ By using this repository you can :-
 ## Requirements
 Make sure you have the latest versions of **Docker** and **Docker Compose** installed on your Base OS(In my case, RHEL8).
 
-## For Docker Installation on RedHAt/Centos:
+## For Docker Installation on Redhat/Centos:
 - Configure yum by adding ***docker.repo and dvd.repo*** inside the `/etc/yum.repos.d` for local installation using  https://download.docker.com/linux/centos/docker-ce.repo   
 - Now, execute command `yum install docker-ce --nobest`
 
@@ -36,7 +36,7 @@ After Docker installation, Install Docker Compose:-
 sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 ```
-![img000](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/installing_docker_compose.PNG)
+![img0](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/installing_docker_compose.PNG)
 
 After installation of the above files:-
 ```
@@ -49,16 +49,26 @@ Download The OwnCloud and Wordpress and MySQL image from https://hub.docker.com 
     docker pull owncloud:latest
     docker pull wordpress:5.1.1-php7.3-apache
     docker pull mysql:5.7 
-![img00](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/image.jpg)
+ 
+ ##  Create the Required Volumes
+   
+    docker volume create owncloud_storage_new
+    docker volume create ownsql_storage_new
+    docker volume create mysql_storage_new
+    docker volume create wp_storage_new
+    
+![img0](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/image.jpg)
 
  ## MySQL setup
 Write command 
 
-    docker -i -t -e MYSQL_ROOT_PASSWORD=(your_password) -e MYSQL_USER=(username) -e MYSQL_PASSWORD=(your_password) -e MYSQL_DATABASE=       (any_database_name) --name dbos mysql:5.7
+    docker -i -t -e MYSQL_ROOT_PASSWORD=(your_password) -e MYSQL_USER=(username) -e MYSQL_PASSWORD=(your_password) -e MYSQL_DATABASE+ (any_database_name) --name dbos mysql:5.7
+    
  ## MySQL client
-If you want to verify that your database folder has been created or not, install MySQL client software using yum install mysql. After installation run this command : 
+If you want to verify that your database has been created or not, install MySQL client software using `yum install mysql`. After installation execute this command : 
    
-    mysql -h 172.20.0.2/16 (your MySQL container IP) -u (username) -p
+    mysql -h 172.20.0.2/16 (your MySQL container IP) -u (username) -p(password)
+    
  ## Docker-Compose
 Install a docker-compose software from https://docs.docker.com/compose/install. 
 Make a compose file using 
@@ -66,37 +76,41 @@ Make a compose file using
     mkdir wordpress.
     mkdir owncloud.
     
-![img000](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/directory.jpg)
+![img0](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/directory.jpg)
     
 You can create/edit your docker-compose file using 
     
     vim docker-compose.yml
 The file name should always be docker-compose.yml
 
-Now, How to create it and maintain it as Infrastructure as a Code(IaaS). It's using docker-compose, it uses YAML format file to make it an easy and managable source code file to easily share and create environment. For this you have to create a file with name docker-compose.yml inside each of the directory of wordpress and owncloud, for now assume we have to give this name only but it's not always the case you can give other name or make multiple files also, for that we need to change the options of docker-compose command.
+Now, How to create it and maintain it as Infrastructure As A Code(IAAS). It's using docker-compose, it uses YAML format file to make it an easy and managable source code file to easily share and create environment. For this you have to create a file with name docker-compose.yml inside each of the directory of wordpress and owncloud, for now assume we have to give this name only but it's not always the case you can give other name or make multiple files also.
+
+## Docker-Compose-File
 
 ![img0](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/owncloud.png)
-![img4](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/wordpress.png)
+![img1](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/wordpress.png)
 
-## Usage
+## Scripting
 
-Now, We will use python script file for better TUI behaviour using os module in python and launching the two OS by running the general docker command. In brief, import os loads the os module of python using which you can run CLI(Command Line Interface) commands. So for this i have used system() function of os module os.system("<command you want to perform>").
+Now, We will use python script file for better TUI behaviour using os module in python, import os loads the os module of python using which you can run CLI(Command Line Interface) commands. So for this I have used system() function of os module as os.system("<command you want to perform>").
 
-![img3](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/python_script.png)
+![img0](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/python_script.png)
+
 
 Open a terminal and `cd` to the folder in which `python script file` is saved and run `python3 docker.py`:-
 
-![img3](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/docker-compose(1).png)
-![img3](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/docker-compose(2).png)
-![img3](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/docker-compose(3).png)
+![img0](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/docker-compose(1).png)
+![img1](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/docker-compose(2).png)
+![img2](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/docker-compose(3).png)
 
 Hola!, Everything is Set now the containers are now built and running. You should be able to access the WordPress and OwnCloud with the configured IP in the windows browser address by :-
+
 For Wordpress=> `http://192.168.xx.xx:8081`  and for linux OS `http://172.2x.x.x:8081`.
 For OwnCloud=> `http://192.168.xx.xx:8082`  and for linux OS `http://172.2x.x.x:8082`
 
-## Here is an instance of my ownCloud server website and Wordpress website which I built using this repo:- 
+## Here is an instance of my OwnCloud server website and Wordpress website which I built using this repo:- 
 
-![img3](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/browseWordpress.PNG)
+![img0](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/browseWordpress.PNG)
 ![img1](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/browse_Owncloud.PNG)
 
 ### Fore more reference on docker-compose 
@@ -112,10 +126,9 @@ docker-compose start
 ```
 docker-compose stop
 ```
-   #### Volumes : 
-All our data will be permanent if we mount a volume to the folders where OwnCloud and MySQL stores data. The data will remain permanent if any of the container terminates. For that you have to create volumes first. 
+
    #### Depends_on : 
-OwnCloud uses database server. We have to specify which database container it should depend on.
+OwnCloud and Wordpress uses database server. We have to specify which database container it should depend on.
    #### Ports : 
 To expose our container to outside world by using PAT.
    
