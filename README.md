@@ -74,6 +74,7 @@ You can create/edit your docker-compose file using
 The file name should always be docker-compose.yml
 
 Now, How to create it and maintain it as Infrastructure as a Code(IaaS). It's using docker-compose, it uses YAML format file to make it an easy and managable source code file to easily share and create environment. For this you have to create a file with name docker-compose.yml inside each of the directory of wordpress and owncloud, for now assume we have to give this name only but it's not always the case you can give other name or make multiple files also, for that we need to change the options of docker-compose command.
+
 ![img0](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/owncloud.png)
 ![img4](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/wordpress.png)
 
@@ -94,6 +95,7 @@ For Wordpress=> `http://192.168.xx.xx:8081`  and for linux OS `http://172.2x.x.x
 For OwnCloud=> `http://192.168.xx.xx:8082`  and for linux OS `http://172.2x.x.x:8082`
 
 ## Here is an instance of my ownCloud server website and Wordpress website which I built using this repo:- 
+
 ![img3](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/browseWordpress.PNG)
 ![img1](https://github.com/anshbargoti/Docker-Compose-Project/blob/master/snap/browse_Owncloud.PNG)
 
