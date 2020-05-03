@@ -1,0 +1,30 @@
+version: '3'
+services:
+        dbos:
+                image: mysql:5.7
+                volumes:
+                        - ownsql_storage_new:/var/lib/mysql
+                restart: always
+                environment:
+                        MYSQL_ROOT_PASSWORD: root123
+                        MYSQL_USER: ansh
+                        MYSQL_PASSWORD: ansh123
+                        MYSQL_DATABASE: mydb
+        ownos:
+                image: owncloud:latest
+                restart: always
+                depends_on:
+                        - dbos
+                ports:
+                        - 8082:80
+                environment:
+                        OWN_CLOUD_DB_HOST: dbos
+                        OWN_CLOUD_DB_USER: ansh
+                        OWN_CLOUD_DB_PASSWORD: ansh123
+                        OWN_CLOUD_DB_NAME: mydb
+                volumes:
+                        - owncloud_storage_new:/var/www/html
+volumes:
+        owncloud_storage_new:
+        ownsql_storage_new:
+ 
